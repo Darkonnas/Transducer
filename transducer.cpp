@@ -641,7 +641,8 @@ sttConfigurationMap stackTransducer::lambdaClosure(const sttConfiguration &initC
                         for (const auto &[stackPush, nextTranslation]:modifications) {
                             std::stack<char> nextStack = currentStack;
 
-                            if (stackPush == std::string(1, nextStack.top()) && nextClosureConfigurations.contains(nextState)) {
+                            if (stackPush == std::string(1, nextStack.top()) && nextClosureConfigurations.contains(nextState) &&
+                                !f.contains(nextState)) {
                                 continue;
                             }
 
@@ -821,7 +822,7 @@ void stackTransducer::printConfiguration() const {
 
                     std::cout << "(" << finState << ',' << translation << ',' << stackPush << ")";
 
-                    if (++outputs.find(output) == outputs.end()) {
+                    if (++outputs.find(output) != outputs.end()) {
                         std::cout << ',';
                     }
                 }

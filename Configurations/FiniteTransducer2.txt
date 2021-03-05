@@ -1,0 +1,18 @@
+5
+q0 q1 q2 q3 q4
+q0
+2
+q1 q3
+2
+a b
+4
+a x y z
+8
+q0 b q1 a
+q0 ~ q1 aa
+q0 b q4 y
+q1 b q2 x
+q2 a q1 xx
+q2 ~ q3 ~
+q4 ~ q1 z
+q4 b q3 z

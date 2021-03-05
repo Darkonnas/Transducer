@@ -225,9 +225,6 @@ fstConfigurationMap finiteStateTransducer::lambdaClosure(const fstConfiguration 
                     if (nextClosureConfigurations.contains(nextState)) {
                         continue;
                     }
-
-                    nextClosureConfigurations[nextState] = {};
-
                     std::set<std::string> joinedTranslations;
 
                     for (const auto &currentTranslation : currentTranslations) {
@@ -296,7 +293,9 @@ std::set<std::string> finiteStateTransducer::translate(const std::string &word) 
             for (const auto &configuration : currentClosure) {
                 auto closure = lambdaClosure(configuration);
 
-                currentConfigurations.insert(closure.begin(), closure.end());
+                for (const auto&[state, translations]:closure) {
+                    currentConfigurations[state].insert(translations.begin(), translations.end());
+                }
             }
         }
     }
@@ -735,11 +734,11 @@ std::set<std::string> stackTransducer::translate(const std::string &word) const 
             for (const auto &closureConfiguration : currentClosureConfigurations) {
                 auto nextClosureConfigurations = lambdaClosure(closureConfiguration);
 
-                for (const auto &[nextState, outputs] : nextClosureConfigurations) {
-                    if (!currentConfigurations.contains(nextState)) {
-                        currentConfigurations[nextState] = {};
+                for (const auto &[state, outputs] : nextClosureConfigurations) {
+                    if (!currentConfigurations.contains(state)) {
+                        currentConfigurations[state] = {};
                     }
-                    currentConfigurations[nextState].insert(outputs.begin(), outputs.end());
+                    currentConfigurations[state].insert(outputs.begin(), outputs.end());
                 }
             }
         }

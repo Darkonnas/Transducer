@@ -2,7 +2,6 @@
 #include "utility.hpp"
 #include <fstream>
 #include <iostream>
-#include <vector>
 
 int main() {
 

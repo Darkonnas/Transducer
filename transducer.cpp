@@ -293,8 +293,8 @@ std::set<std::string> finiteStateTransducer::translate(const std::string &word) 
             for (const auto &configuration : currentClosure) {
                 auto closure = lambdaClosure(configuration);
 
-                for (const auto&[state, translations]:closure) {
-                    currentConfigurations[state].insert(translations.begin(), translations.end());
+                for (const auto&[state, closureTranslations]:closure) {
+                    currentConfigurations[state].insert(closureTranslations.begin(), closureTranslations.end());
                 }
             }
         }
@@ -668,7 +668,7 @@ sttConfigurationMap stackTransducer::lambdaClosure(const sttConfiguration &initC
         }
         foundNext = (nextClosureConfigurations != closureConfigurations);
         closureConfigurations = nextClosureConfigurations;
-    };
+    }
     return closureConfigurations;
 }
 
